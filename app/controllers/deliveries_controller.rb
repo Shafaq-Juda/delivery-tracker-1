@@ -5,7 +5,7 @@ class DeliveriesController < ApplicationController
     the_deliveries = Delivery.all
     @list_of_deliveries = the_deliveries.order({:created_at => :desc})
     @waiting_on_deliveries = @list_of_deliveries.where(:arrived => :false)
-
+    @received_deliveries = @list_of_deliveries.where(:arrived => :true)
     render("deliveries/index")
   end
 
@@ -69,7 +69,7 @@ class DeliveriesController < ApplicationController
     @the_delivery.details = params.fetch("query_details")
     @the_delivery.arrived = false
 
-    @the_delivery.user_id = current_user.id
+   # @the_delivery.user_id = current_user.id
     if @the_delivery.valid?
       @the_delivery.save
       redirect_to("/deliveries/#{@the_delivery.id}", { :notice => "Added to list." })
