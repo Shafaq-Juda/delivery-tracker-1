@@ -3,9 +3,9 @@ class DeliveriesController < ApplicationController
 
   def index
     the_deliveries = Delivery.all
-    @order_deliveries = the_deliveries.order({:created_at => :dec})
-    @waiting_on = the_deliveries.where(:arrived => :false)
-    @received_on = the_deliveries.where(:arrived => :true)
+    @list_of_deliveries = the_deliveries.order({:created_at => :desc})
+    @waiting_on_deliveries = @list_of_deliveries.where(:arrived => :false)
+
     render("deliveries/index")
   end
 
