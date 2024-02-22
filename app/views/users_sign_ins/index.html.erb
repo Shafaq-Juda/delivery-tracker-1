@@ -1,0 +1,102 @@
+<div>
+  <div>
+    <h1>
+      List of all users sign ins
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Add a new users sign in
+    </h2>
+
+    <form action="/insert_users_sign_in" method="post">
+      <div>
+        <label for="e_mail_box">
+          E mail
+        </label>
+
+        <input type="text" id="e_mail_box" name="query_e_mail">
+      </div>
+
+      <div>
+        <label for="password_box">
+          Password
+        </label>
+
+        <input type="text" id="password_box" name="query_password">
+      </div>
+
+      <button>
+        Create users sign in
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+<div>
+  <div>
+    <table border="1">
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          E mail
+        </th>
+
+        <th>
+          Password
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_users_sign_ins.each do |a_users_sign_in| %>
+      <tr>
+        <td>
+          <%= a_users_sign_in.id %>
+        </td>
+
+        <td>
+          <%= a_users_sign_in.e_mail %>
+        </td>
+
+        <td>
+          <%= a_users_sign_in.password %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(a_users_sign_in.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(a_users_sign_in.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/users_sign_ins/<%= a_users_sign_in.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>

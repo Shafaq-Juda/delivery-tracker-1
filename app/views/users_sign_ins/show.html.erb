@@ -1,0 +1,86 @@
+<div>
+  <div>
+    <h1>
+      Users sign in #<%= @the_users_sign_in.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/users_sign_ins">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_users_sign_in/<%= @the_users_sign_in.id %>">
+          Delete users sign in
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        E mail
+      </dt>
+      <dd>
+        <%= @the_users_sign_in.e_mail %>
+      </dd>
+
+      <dt>
+        Password
+      </dt>
+      <dd>
+        <%= @the_users_sign_in.password %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_users_sign_in.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_users_sign_in.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit users sign in
+    </h2>
+
+    <form action="/modify_users_sign_in/<%= @the_users_sign_in.id %>"  method="post" >
+      <div>
+        <label for="e_mail_box">
+          E mail
+        </label>
+
+        <input type="text" id="e_mail_box" name="query_e_mail" value="<%= @the_users_sign_in.e_mail %>">
+      </div>
+
+      <div>
+        <label for="password_box">
+          Password
+        </label>
+
+        <input type="text" id="password_box" name="query_password" value="<%= @the_users_sign_in.password %>">
+      </div>
+
+      <button>
+        Update users sign in
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
