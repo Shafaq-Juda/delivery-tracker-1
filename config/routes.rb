@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
- 
+  devise for users
   # Routes for the Delivery resource:
  root to: "deliveries#index"
 
