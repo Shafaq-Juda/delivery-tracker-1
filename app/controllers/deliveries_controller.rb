@@ -2,7 +2,8 @@ class DeliveriesController < ApplicationController
 
 
   def index
-    the_deliveries = Delivery.all
+
+    the_deliveries = Delivery.all.where({:user_id => current_user})
     @list_of_deliveries = the_deliveries.order({:created_at => :desc})
     @waiting_on_deliveries = @list_of_deliveries.where(:arrived => :false)
     @received_deliveries = @list_of_deliveries.where(:arrived => :true)
@@ -22,13 +23,14 @@ class DeliveriesController < ApplicationController
   def create
     @the_delivery = Delivery.new
     @the_delivery.description = params.fetch("query_description")
+    @the_delivery.user_id = current_user.id
     @the_delivery.supposed_to_arrive_on = params.fetch("query_supposed_to_arrive_on")
     @the_delivery.details = params.fetch("query_details")
     @the_delivery.arrived = params.fetch("query_arrived", false)
 
     if @the_delivery.valid?
       @the_delivery.save
-      redirect_to("/deliveries", { :notice => "Delivery created successfully." })
+      redirect_to("/", { :notice => "Added to list" })
     else
       redirect_to("/deliveries", { :alert => @the_delivery.errors.full_messages.to_sentence })
     end
@@ -37,10 +39,6 @@ class DeliveriesController < ApplicationController
   def update
     the_id = params.fetch("path_id")
     @the_delivery = Delivery.where({ :id => the_id }).at(0)
-
-    @the_delivery.description = params.fetch("query_description")
-    @the_delivery.supposed_to_arrive_on = params.fetch("query_supposed_to_arrive_on")
-    @the_delivery.details = params.fetch("query_details")
     @the_delivery.arrived = true
 
     if @the_delivery.valid?
@@ -62,19 +60,19 @@ class DeliveriesController < ApplicationController
 
 
 
-  def create
-    @the_delivery = Delivery.new
-    @the_delivery.description = params.fetch("query_description")
-    @the_delivery.supposed_to_arrive_on = params.fetch("query_supposed_to_arrive_on")
-    @the_delivery.details = params.fetch("query_details")
-    @the_delivery.arrived = false
+  # def create
+  #   @the_delivery = Delivery.new
+  #   @the_delivery.description = params.fetch("query_description")
+  #   @the_delivery.supposed_to_arrive_on = params.fetch("query_supposed_to_arrive_on")
+  #   @the_delivery.details = params.fetch("query_details")
+  #   @the_delivery.arrived = false
 
-   # @the_delivery.user_id = current_user.id
-    if @the_delivery.valid?
-      @the_delivery.save
-      redirect_to("/deliveries/#{@the_delivery.id}", { :notice => "Added to list." })
-    else
-      redirect_to("/deliveries", { :alert => @the_delivery.errors.full_messages.to_sentence })
-    end
-  end
+  #  # @the_delivery.user_id = current_user.id
+  #   if @the_delivery.valid?
+  #     @the_delivery.save
+  #     redirect_to("/deliveries/#{@the_delivery.id}", { :notice => "Added to list." })
+  #   else
+  #     redirect_to("/deliveries", { :alert => @the_delivery.errors.full_messages.to_sentence })
+  #   end
+  # end
 end

@@ -27,12 +27,13 @@
 
   <body>
     <nav>
-     
-
+  
       <% if current_user != nil%>
-       <a href="/"></a>
-          <a href="/users/sign_out">Sign out</a>
-          <a href="/users/edit">Edit profile</a>
+       <a href="/">Delivery Tracker</a>
+        |
+        <a href="/users/edit">Edit profile</a>
+        |
+        <a href="/users/sign_out">Sign out</a>
       <% else %>
           <a href="/users/sign_up">Sign up</a>
           <a href="/users/sign_in">Sign in</a>
